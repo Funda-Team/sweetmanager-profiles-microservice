@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using ProfilesService.Domain.Model.Aggregates;
+using ProfilesService.Domain.Model.Entities;
 
 namespace ProfilesService.Shared.Infrastructure.Persistence.EFC.Configuration;
 

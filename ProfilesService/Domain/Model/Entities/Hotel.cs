@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ProfilesService;
+﻿namespace ProfilesService.Domain.Model.Entities;
 
 public partial class Hotel
 {
