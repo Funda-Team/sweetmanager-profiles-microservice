@@ -25,22 +25,19 @@ public class CustomerController : ControllerBase
     [HttpPost("create")]
     public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerResource resource)
     {
-        try
-        {
-            var result = await _customerCommandService
-                .Handle(CreateCustomerCommandFromResourceAssembler
-                    .ToCommandFromResource(resource));
-                
-            if (result is false)
-                return BadRequest("Failed to create customer.");
-        
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            // Log the exception (ex) details here for debugging
-            return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error.");
-        }
+        // try
+        // {
+        //     
+        // }
+        // catch (Exception ex)
+        // {
+        //     // Log the exception (ex) details here for debugging
+        //     return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error.");
+        // }
+        var result = await _customerCommandService
+            .Handle(CreateCustomerCommandFromResourceAssembler
+                .ToCommandFromResource(resource));
+        return StatusCode(StatusCodes.Status201Created, result);
     }
 
 
@@ -52,7 +49,7 @@ public class CustomerController : ControllerBase
                 .ToCommandFromResource(resource));
         if (result is false)
             return BadRequest();
-        return Ok(result);
+        return StatusCode(StatusCodes.Status200OK,result);
     }
     
     [HttpGet("get-all-customers/{hotelId:int}")]
@@ -65,6 +62,6 @@ public class CustomerController : ControllerBase
         (CustomerResourceFromEntityAssembler
             .ToResourceFromEntity);
 
-        return Ok(customerResource);
+        return StatusCode(StatusCodes.Status200OK,customerResource);
     }
 }

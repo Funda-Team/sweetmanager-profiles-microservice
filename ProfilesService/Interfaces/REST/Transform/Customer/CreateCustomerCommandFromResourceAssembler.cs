@@ -6,7 +6,7 @@ namespace ProfilesService.Interfaces.REST.Transform.Customer;
 public class CreateCustomerCommandFromResourceAssembler
 {
     public static CreateCustomerCommand ToCommandFromResource(CreateCustomerResource resource)=>
-    new(resource.Username, resource.Name, resource.Username, resource.Email, resource.Phone);
+    new(resource.Username, resource.Name, resource.Username, resource.Email, resource.Phone, resource.HotelId);
     
 }
 

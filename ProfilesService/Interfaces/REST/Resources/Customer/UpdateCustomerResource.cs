@@ -2,4 +2,4 @@
 
 namespace ProfilesService.Interfaces.REST.Resources.Customer;
 
-public record UpdateCustomerResource(int Id, string Email, int Phone, StateType State);
+public record UpdateCustomerResource(int Id, string Email, int Phone, StateType State, int HotelId);

@@ -29,4 +29,18 @@ public class CustomerRepository : BaseRepository<Customer>, ICustomerRepository
     {
         throw new NotImplementedException();
     }
+
+    public Task<bool> EmailExistsAsync(string email)
+    {
+        var exists = _context.Set<Customer>()
+            .AnyAsync(c => c.Email == email);
+        return exists;
+    }
+
+    public Task<bool> UsernameExistsAsync(string username)
+    {
+        var exists = _context.Set<Customer>()
+            .AnyAsync(c => c.Username == username);
+        return exists;
+    }
 }

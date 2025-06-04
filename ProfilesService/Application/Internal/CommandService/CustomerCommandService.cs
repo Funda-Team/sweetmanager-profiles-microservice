@@ -11,6 +11,11 @@ public class CustomerCommandService(ICustomerRepository customerRepository, IUni
     {
         try
         {
+            if (await customerRepository.EmailExistsAsync(command.Email))
+                throw new InvalidOperationException("Email already exists");
+                
+            if (await customerRepository.UsernameExistsAsync(command.Username))
+                throw new InvalidOperationException("Username already exists");
             await customerRepository.AddAsync(new(command));
             await unitOfWork.CommitAsync();
             return true;
@@ -21,8 +26,16 @@ public class CustomerCommandService(ICustomerRepository customerRepository, IUni
         }
     }
     
-    public async Task<bool> Handle
-        (UpdateCustomerCommand command) => 
-        await customerRepository.UpdateCustomerStateAsync
-        (command.Id,command.Email, command.Phone,command.State);
+    public async Task<bool> Handle(UpdateCustomerCommand command)
+    {
+        var customer = await customerRepository.FindByIdAsync(command.Id);
+        if (customer == null)
+            throw new InvalidOperationException("Customer not found");
+
+        if (command.Email != customer.Email && await customerRepository.EmailExistsAsync(command.Email))
+            throw new InvalidOperationException("Email already exists");
+
+        return await customerRepository.UpdateCustomerStateAsync
+            (command.Id, command.Email, command.Phone, command.State);
+    }
 }
