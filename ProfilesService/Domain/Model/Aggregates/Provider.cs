@@ -17,7 +17,7 @@ public partial class Provider
 
     public StateType State { get; set; }
 
-    public int? HotelsId { get; set; }
+    public int HotelsId { get; set; }
 
     public Provider()
     {
@@ -49,6 +49,7 @@ public partial class Provider
         Email = command.Email;
         Phone = command.Phone;
         State = StateType.Active;
+        HotelsId = command.HotelId;
     }
     public Provider(UpdateProviderCommand command)
     {

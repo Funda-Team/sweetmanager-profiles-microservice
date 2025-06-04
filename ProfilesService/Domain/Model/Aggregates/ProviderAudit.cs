@@ -5,6 +5,6 @@ namespace ProfilesService.Domain.Model.Aggregates;
 
 public partial class Provider : IEntityWithCreatedUpdatedDate
 {
-    [Column("CreatedAt")]public DateTimeOffset? CreatedDate { get; set; }
-    [Column("UpdatedAt")]public DateTimeOffset? UpdatedDate { get; set; }
+    [Column("CreatedAt")]public DateTimeOffset? CreatedDate { get; set; } = DateTimeOffset.Now;
+    [Column("UpdatedAt")]public DateTimeOffset? UpdatedDate { get; set; } = DateTimeOffset.Now;
 }

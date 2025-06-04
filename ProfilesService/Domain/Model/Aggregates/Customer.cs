@@ -19,7 +19,7 @@ public partial class Customer
 
     public StateType State { get; set; }
 
-    public int? HotelsId { get; set; }
+    public int HotelsId { get; set; }
 
     public Customer()
     {
@@ -55,6 +55,7 @@ public partial class Customer
         Email = command.Email;
         Phone = command.Phone;
         State = StateType.Active;
+        HotelsId = command.HotelId;
     }
 
     public Customer(UpdateCustomerCommand command)
@@ -65,7 +66,7 @@ public partial class Customer
         if (command.Phone < 1000000000 || command.Phone > 999999999)
             throw new ArgumentException("Phone must be a 10-digit number.");
 
-        if (string.IsNullOrWhiteSpace(command.State.ToString()) || command.State != StateType.Active || command.State != StateType.Inactive)
+        if (command.State != StateType.Active && command.State != StateType.Inactive)
             throw new ArgumentException("State is required, cannot be null or blank, it must be Active or Inactive.");
 
         this.Email = command.Email;
