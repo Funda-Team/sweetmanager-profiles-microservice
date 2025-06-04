@@ -15,5 +15,7 @@ public record CreateProviderCommand(
     string Email,
     [Required]
     [Range(1000000000, 9999999999)]
-    int Phone
+    int Phone,
+    [Required]
+    int HotelId
     );

@@ -10,4 +10,7 @@ public interface IProviderRepository : IBaseRepository<Provider>
     
     Task<IEnumerable<Provider>> FindProviderByHotelIdAsync(int hotelId);
 
+    Task<bool> EmailExistsAsync(string email);
+    
+    Task<bool> NameExistsAsync(string username);
 }

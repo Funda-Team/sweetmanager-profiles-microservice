@@ -29,4 +29,18 @@ public class ProviderRepository : BaseRepository<Provider>, IProviderRepository
     {
         throw new NotImplementedException();
     }
+
+    public Task<bool> EmailExistsAsync(string email)
+    {
+        var exists = _context.Set<Provider>()
+            .AnyAsync(p => p.Email == email);
+        return exists;
+    }
+
+    public Task<bool> NameExistsAsync(string name)
+    {
+        var exists = _context.Set<Provider>()
+            .AnyAsync(p => p.Name == name);
+        return exists;
+    }
 }

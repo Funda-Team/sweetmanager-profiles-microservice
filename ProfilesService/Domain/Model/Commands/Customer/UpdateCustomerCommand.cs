@@ -16,5 +16,6 @@ public record UpdateCustomerCommand(
     [Range(1000000000, 9999999999)]
     int Phone,
     [Required]
-    StateType State);
+    StateType State
+    );
     

@@ -6,5 +6,5 @@ namespace ProfilesService.Interfaces.REST.Transform.Provider;
 public class CreateProviderCommandFromResourceAssembler
 {
     public static CreateProviderCommand ToCommandFromResource(CreateProviderResource resource) =>
-    new(resource.Name,resource.Address,resource.Email,resource.Phone);
+    new(resource.Name,resource.Address,resource.Email,resource.Phone,resource.HotelId);
 }
