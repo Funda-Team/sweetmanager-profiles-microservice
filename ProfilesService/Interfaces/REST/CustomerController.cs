@@ -25,28 +25,26 @@ public class CustomerController : ControllerBase
     [HttpPost("create")]
     public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerResource resource)
     {
-        // try
-        // {
-        //     
-        // }
-        // catch (Exception ex)
-        // {
-        //     // Log the exception (ex) details here for debugging
-        //     return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error.");
-        // }
-        var result = await _customerCommandService
-            .Handle(CreateCustomerCommandFromResourceAssembler
-                .ToCommandFromResource(resource));
-        return StatusCode(StatusCodes.Status201Created, result);
+        try 
+        {
+            var result = await _customerCommandService
+                .Handle(CreateCustomerCommandFromResourceAssembler
+                    .ToCommandFromResource(resource));
+            return StatusCode(StatusCodes.Status201Created, result);
+         }
+         catch (Exception ex)
+         {
+             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error.");
+         }
     }
 
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateCustomer([FromBody] UpdateCustomerResource resource)
+    [HttpPut("update/{id:int}")]
+    public async Task<IActionResult> UpdateCustomer([FromBody] UpdateCustomerResource resource, [FromRoute] int id)
     {
         var result = await _customerCommandService
             .Handle(UpdateCustomerCommandFromResourceAssembler
-                .ToCommandFromResource(resource));
+                .ToCommandFromResource(id, resource));
         if (result is false)
             return BadRequest();
         return StatusCode(StatusCodes.Status200OK,result);

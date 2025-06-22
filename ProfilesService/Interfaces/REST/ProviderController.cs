@@ -23,7 +23,7 @@ namespace ProfilesService.Interfaces.REST
             _providerQueryService = providerQueryService;
         }
 
-        [HttpPost("create-provider")]
+        [HttpPost("create")]
         public async Task<IActionResult> CreateProvider([FromBody] CreateProviderResource resource)
         {
             try
@@ -40,12 +40,12 @@ namespace ProfilesService.Interfaces.REST
             }
         }
 
-        [HttpPut("update-provider")]
-        public async Task<IActionResult> UpdateProvider([FromBody] UpdateProviderResource resource)
+        [HttpPut("update/{id:int}")]
+        public async Task<IActionResult> UpdateProvider([FromBody] UpdateProviderResource resource, [FromRoute] int id)
         {
             var result = await _providerCommandService
                 .Handle(UpdateProviderCommandFromResourceAssembler
-                    .ToCommandFromResource(resource));
+                    .ToCommandFromResource(id, resource));
             if (result is false)
                 return BadRequest();
             return Ok(result);

@@ -5,6 +5,6 @@ namespace ProfilesService.Interfaces.REST.Transform.Hotel;
 
 public class UpdateHotelCommandFromResourceAssembler
 {
-    public static UpdateHotelCommand ToCommandFromResource(UpdateHotelResource resource)=>
-    new(resource.Id,resource.Name,resource.Phone,resource.Email);
+    public static UpdateHotelCommand ToCommandFromResource(int id, UpdateHotelResource resource)=>
+    new(id,resource.Name,resource.Phone,resource.Email);
 }

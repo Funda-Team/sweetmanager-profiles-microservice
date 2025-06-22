@@ -8,7 +8,7 @@ using ProfilesService.Interfaces.REST.Transform.Hotel;
 
 namespace ProfilesService.Interfaces.REST
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]
@@ -42,12 +42,12 @@ namespace ProfilesService.Interfaces.REST
             }
         }
 
-        [HttpPut("update")]
-        public async Task<IActionResult> UpdateHotel([FromBody] UpdateHotelResource resource)
+        [HttpPut("update/{id:int}")]
+        public async Task<IActionResult> UpdateHotel([FromBody] UpdateHotelResource resource, [FromRoute] int id)
         {
             var result = await _hotelCommandService
                 .Handle(UpdateHotelCommandFromResourceAssembler
-                    .ToCommandFromResource(resource));
+                    .ToCommandFromResource(id, resource));
             if (result is false)
                 return BadRequest();
 
@@ -65,8 +65,8 @@ namespace ProfilesService.Interfaces.REST
             return Ok(hotelsResource);
         }
 
-        [HttpGet("by-owner")]
-        public async Task<IActionResult> HotelsByOwnersId([FromQuery] int ownersId)
+        [HttpGet("by-owners/{ownersId:int}")]
+        public async Task<IActionResult> HotelsByOwnersId( int ownersId)
         {
             var hotel = await _hotelQueryService
                 .handle(new GetHotelByOwnersIdQuery(ownersId));

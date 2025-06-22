@@ -25,22 +25,22 @@ public class CustomerRepository : BaseRepository<Customer>, ICustomerRepository
                 .SetProperty(u => u.State, state)
             ) > 0;
 
-    public Task<IEnumerable<Customer>> FindCustomerByHotelIdAsync(int hotelId)
+    public async Task<IEnumerable<Customer>> FindCustomerByHotelIdAsync(int hotelId)
     {
-        throw new NotImplementedException();
+        return await Context.Set<Customer>().Where(c => c.HotelsId.Equals(hotelId)).ToListAsync();
     }
 
-    public Task<bool> EmailExistsAsync(string email)
+    public async Task<bool> EmailExistsAsync(string email)
     {
         var exists = _context.Set<Customer>()
             .AnyAsync(c => c.Email == email);
-        return exists;
+        return await exists;
     }
 
-    public Task<bool> UsernameExistsAsync(string username)
+    public async Task<bool> UsernameExistsAsync(string username)
     {
         var exists = _context.Set<Customer>()
             .AnyAsync(c => c.Username == username);
-        return exists;
+        return await exists;
     }
 }

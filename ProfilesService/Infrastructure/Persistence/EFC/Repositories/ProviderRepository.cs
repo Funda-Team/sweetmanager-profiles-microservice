@@ -25,16 +25,18 @@ public class ProviderRepository : BaseRepository<Provider>, IProviderRepository
                 .SetProperty(u => u.Phone, phone)
                 .SetProperty(u => u.State, state)
             ) > 0;
-    public Task<IEnumerable<Provider>> FindProviderByHotelIdAsync(int hotelId)
+    public async Task<IEnumerable<Provider>> FindProviderByHotelIdAsync(int hotelId)
     {
-        throw new NotImplementedException();
+        return await _context.Set<Provider>()
+            .Where(p => p.HotelsId.Equals(hotelId))
+            .ToListAsync();
     }
 
-    public Task<bool> EmailExistsAsync(string email)
+    public async Task<bool> EmailExistsAsync(string email)
     {
         var exists = _context.Set<Provider>()
             .AnyAsync(p => p.Email == email);
-        return exists;
+        return await exists;
     }
 
     public Task<bool> NameExistsAsync(string name)

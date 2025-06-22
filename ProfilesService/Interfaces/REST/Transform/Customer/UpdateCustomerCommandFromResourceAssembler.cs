@@ -5,6 +5,6 @@ namespace ProfilesService.Interfaces.REST.Transform.Customer;
 
 public class UpdateCustomerCommandFromResourceAssembler
 {
-    public static UpdateCustomerCommand ToCommandFromResource(UpdateCustomerResource resource) =>
-        new(resource.Id,resource.Email, resource.Phone, resource.State);
+    public static UpdateCustomerCommand ToCommandFromResource(int id, UpdateCustomerResource resource) =>
+        new(id,resource.Email, resource.Phone, resource.State);
 }
