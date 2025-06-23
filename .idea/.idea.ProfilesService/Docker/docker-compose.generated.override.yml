@@ -1,0 +1,20 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  sweet-manager-webservice:
+    build:
+      context: "/Users/manuelpena/Documents/GitHub/Fundamentos/sweetmanager-profiles-microservice/ProfilesService"
+      dockerfile: "Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/ProfilesService.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "sweetmanagerwebservice:dev"
+    ports: []
+    volumes:
+    - "/Users/manuelpena/.nuget/packages:/home/app/.nuget/packages"
+    - "/Users/manuelpena/Documents/GitHub/Fundamentos/sweetmanager-profiles-microservice/ProfilesService:/app:rw"
+    - "/Users/manuelpena/Documents/GitHub/Fundamentos/sweetmanager-profiles-microservice:/src:rw"
+    working_dir: "/app"
